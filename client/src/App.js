@@ -2,6 +2,9 @@
 import { jsx, css } from "@emotion/core";
 import { Component } from "react";
 import styled from "@emotion/styled";
+import "./App.css";
+
+import DarkModeToggle from "./components/DarkModeToggle";
 
 const AppContainer = styled.div`
     width: 80%;
@@ -49,6 +52,7 @@ class App extends Component {
     render() {
         return (
             <AppContainer>
+                <DarkModeToggle />
                 {this.state.players !== [] &&
                     this.state.players.map(player => (
                         <Card key={player.id}>
