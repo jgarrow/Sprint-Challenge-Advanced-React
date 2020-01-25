@@ -1,6 +1,6 @@
 import React from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 const ToggleContainer = styled.div`
     background: papayawhip;
@@ -14,8 +14,8 @@ const ToggleContainer = styled.div`
 const Toggle = styled.div`
     background: #f68819;
     border-radius: 50px;
-    height: 18px;
-    left: ${props => (props.darkMode ? "18px" : "0px")};
+    height: 20px;
+    left: ${props => (props.darkMode ? "20px" : "0px")};
     position: absolute;
     transition: 0.2s;
     width: 20px;

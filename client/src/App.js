@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import { Component } from "react";
-import styled from "@emotion/styled";
+import React, { Component } from "react";
+import styled from "styled-components";
+import axios from "axios";
 import "./App.css";
 
 import DarkModeToggle from "./components/DarkModeToggle";
@@ -31,6 +30,10 @@ const Grid = styled.div`
     grid-gap: 10px;
 `;
 
+const FlexEnd = styled.p`
+    justify-self: flex-end;
+`;
+
 class App extends Component {
     constructor() {
         super();
@@ -40,11 +43,10 @@ class App extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:5000/api/players")
-            .then(res => res.json())
+        axios
+            .get("http://localhost:5000/api/players")
             .then(res => {
-                console.log(res);
-                this.setState({ ...this.state, players: res });
+                this.setState({ ...this.state, players: res.data });
             })
             .catch(err => console.log("Error fetching data: ", err));
     }
@@ -55,24 +57,17 @@ class App extends Component {
                 <DarkModeToggle />
                 {this.state.players !== [] &&
                     this.state.players.map(player => (
-                        <Card key={player.id}>
-                            <h2 css={{ textAlign: "center" }}>{player.name}</h2>
+                        <Card key={player.id} data-testid="card">
+                            <h2
+                                data-testid="player-name"
+                                style={{ textAlign: "center" }}
+                            >
+                                {player.name}
+                            </h2>
                             <Grid>
-                                <p
-                                    css={{
-                                        justifySelf: "flex-end"
-                                    }}
-                                >
-                                    Player country:
-                                </p>
+                                <FlexEnd>Player country:</FlexEnd>
                                 <p>{player.country}</p>
-                                <p
-                                    css={{
-                                        justifySelf: "flex-end"
-                                    }}
-                                >
-                                    # internet searches:
-                                </p>
+                                <FlexEnd># internet searches:</FlexEnd>
                                 <p>{player.searches}</p>
                             </Grid>
                         </Card>
